@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Logo from '../assets/img/logo-no-background.png'
 import NavCryptoList from './components/nav-crypto-list/nav-crypto-list';
 import Chart from './components/chart/chart';
+import NavCurrency from './components/nav-currency/nav-currency';
 
 
 export function App() {
@@ -22,8 +23,11 @@ export function App() {
         <AppShell
           padding="md"
           navbar={<Navbar width={{ base: 300 }} height={'100vh'} p="xs">{
-            <NavCryptoList />
-            }</Navbar>}
+            <div>
+              <NavCurrency />
+              <NavCryptoList />
+            </div>
+          }</Navbar>}
           header={<Header height={50} p="xs">{
             <Group position='apart'><Image
               src={Logo}

@@ -4,7 +4,8 @@ import styles from './nav-crypto-button.module.scss';
 /* eslint-disable-next-line */
 export interface NavCryptoButtonProps {
   logo?: string,
-  name: string
+  name: string,
+  cryptoId: string
 }
 
 export function NavCryptoButton(props: NavCryptoButtonProps) {
@@ -16,7 +17,13 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
         </ThemeIcon>
       }
     >
-      <Button variant='light' color='violet' style={{ width: "230px "}}>    
+      <Button variant='light' color='violet' style={{ width: "230px "}}
+        onClick={
+          () => {
+            console.log(props.cryptoId);
+          }
+        }
+      >    
         <div>{props.name}</div>
       </Button>
     </List.Item>

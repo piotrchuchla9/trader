@@ -12,7 +12,7 @@ export function NavCryptoList(props: NavCryptoListProps) {
       size="lg"
       center
     >
-      <NavCryptoButton logo='https://assets.coingecko.com/coins/images/5720/thumb/F1nTlw9I_400x400.jpg?1547041588' name='essa' ></NavCryptoButton>
+      <NavCryptoButton cryptoId='asd123' logo='https://assets.coingecko.com/coins/images/5720/thumb/F1nTlw9I_400x400.jpg?1547041588' name='essa' ></NavCryptoButton>
     </List>
   );
 }
