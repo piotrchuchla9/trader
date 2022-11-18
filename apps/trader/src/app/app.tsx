@@ -22,29 +22,32 @@ export function App() {
       <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
         <AppShell
           padding="md"
-          navbar={<Navbar width={{ base: 300 }} height={'100vh'} p="xs">{
-            <div>
-              <NavCurrency />
-              <NavCryptoList />
-            </div>
-          }</Navbar>}
-          header={<Header height={50} p="xs">{
-            <Group position='apart'><Image
-              src={Logo}
-              width={100}
-            >
-
-            </Image><Group
-              position='right'> <ActionIcon
-                variant="outline"
-                color={dark ? 'yellow' : 'blue'}
-                onClick={() => toggleColorScheme()}
-                title="Toggle color scheme"
+          navbar={
+            <Navbar width={{ base: 300 }} height={'100vh'} p="xs">{
+              <div>
+                <NavCurrency />
+                <NavCryptoList />
+              </div>
+            }</Navbar>}
+          header={
+            <Header height={50} p="xs">{
+              <Group position='apart'><Image
+                src={Logo}
+                width={100}
               >
-                  {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
-                </ActionIcon>
-              </Group></Group>}
-          </Header>}
+
+              </Image><Group
+                position='right'> <ActionIcon
+                  variant="outline"
+                  color={dark ? 'yellow' : 'blue'}
+                  onClick={() => toggleColorScheme()}
+                  title="Toggle color scheme"
+                >
+                    {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+                  </ActionIcon>
+                </Group></Group>
+                }
+            </Header>}
           styles={(theme) => ({
             main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
           })}

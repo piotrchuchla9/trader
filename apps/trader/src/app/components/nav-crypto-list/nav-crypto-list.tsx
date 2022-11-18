@@ -6,6 +6,7 @@ import styles from './nav-crypto-list.module.scss';
 export interface NavCryptoListProps {}
 
 export function NavCryptoList(props: NavCryptoListProps) {
+
   return (
     <List
       spacing="xs"
