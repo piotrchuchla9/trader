@@ -1,4 +1,4 @@
-import { List } from '@mantine/core';
+import { List, ScrollArea } from '@mantine/core';
 import NavCryptoButton from '../nav-crypto-button/nav-crypto-button';
 import styles from './nav-crypto-list.module.scss';
 import { useGlobalState } from '../../config/states'
@@ -30,18 +30,20 @@ export function NavCryptoList(props: NavCryptoListProps) {
       cryptoId={el.id}
       logo={el.image}
       name={el.name}
-      />
+    />
 
   })
 
   return (
-    <List
-      spacing="xs"
-      size="lg"
-      center
-    >
-      {buttons}
-    </List>
+    <ScrollArea style={{ height: "100vh" }}>
+      <List
+        spacing="xs"
+        size="lg"
+        center
+      >
+        {buttons}
+      </List>
+    </ScrollArea>
   );
 }
 

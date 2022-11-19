@@ -7,7 +7,8 @@ import Logo from '../assets/img/logo-no-background.png'
 import NavCryptoList from './components/nav-crypto-list/nav-crypto-list';
 import Chart from './components/chart/chart';
 import NavCurrency from './components/nav-currency/nav-currency';
-import { useGlobalState } from './config/states';
+import { setGlobalState, useGlobalState } from './config/states';
+import MainInfo from './components/main-info/main-info';
 
 
 export function App() {
@@ -17,10 +18,6 @@ export function App() {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   const dark = colorScheme === 'dark';
-
-  const currency = useGlobalState("defaultCurrency");
-  const crypto = useGlobalState("defaultCrypto");
-
 
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
@@ -45,14 +42,18 @@ export function App() {
                 position='right'> <ActionIcon
                   variant="outline"
                   color={dark ? 'yellow' : 'blue'}
-                  onClick={() => toggleColorScheme()}
+                  onClick={() => {
+                    toggleColorScheme();
+                    if(dark === true) {
+                      setGlobalState("currentTheme", 'dark');
+                    } else {
+                      setGlobalState("currentTheme", 'light');
+                    }
+                  }}
                   title="Toggle color scheme"
                 >
                     {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
                   </ActionIcon>
-                  <Button onClick={() => {
-                    console.log("Curr: " + currency[0] + "\nCrypto: " + crypto[0])
-                  }}>essa</Button>
                 </Group></Group>
                 }
             </Header>}
@@ -61,7 +62,7 @@ export function App() {
           })}
         >
 
-
+          <MainInfo />
 
           <Chart />
 
