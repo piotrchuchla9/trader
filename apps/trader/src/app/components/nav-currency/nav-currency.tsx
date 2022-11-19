@@ -1,20 +1,21 @@
-import { Select } from '@mantine/core';
+import { NativeSelect } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { setGlobalState, useGlobalState } from '../../config/states'
 
 import styles from './nav-currency.module.scss';
+import { Currencies } from '../../config/api';
 
 /* eslint-disable-next-line */
 export interface NavCurrencyProps {}
 
-const currencyApiURL = "https://api.coingecko.com/api/v3/simple/supported_vs_currencies";
+const currencyApiURL = Currencies;
 
 export function NavCurrency(props: NavCurrencyProps) {
-  const [defaultCurrency] = useGlobalState("defaultCurrency");
 
   const [post, setPost] = useState([]);
-  const [value, setValue] = useState<string | null>(null);
+  const [value, setValue] = useState('usd');
+
 
   useEffect(() => {
     axios.get(currencyApiURL).then((response) => {
@@ -25,23 +26,19 @@ export function NavCurrency(props: NavCurrencyProps) {
   if (!post) return null;
 
   const handleCurrancyChange = (e: any) => {
-    setGlobalState("defaultCurrency", e.tager.value)
+    setGlobalState("defaultCurrency", e.target.value)
   }
 
   return (
-    <Select
+    <NativeSelect
       style={{ marginBottom: '20px' }}
-      transition="pop-top-left"
-      transitionDuration={400}
-      transitionTimingFunction="ease"
       label="Your Currency"
       placeholder="USD"
-      searchable
-      nothingFound="No options"
       data={post}
       value={value}
-      onChange={setValue}
+      onChange={(e) => setValue(e.currentTarget.value)}
       onChangeCapture={handleCurrancyChange}
+
     />
   );
 }

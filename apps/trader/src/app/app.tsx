@@ -1,12 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
-import { MantineProvider, AppShell, Navbar, Header, Group, ActionIcon, Image, ColorSchemeProvider, ColorScheme } from '@mantine/core';
+import { MantineProvider, AppShell, Navbar, Header, Group, ActionIcon, Image, ColorSchemeProvider, ColorScheme, Button } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons';
 import { useState } from 'react';
 import Logo from '../assets/img/logo-no-background.png'
 import NavCryptoList from './components/nav-crypto-list/nav-crypto-list';
 import Chart from './components/chart/chart';
 import NavCurrency from './components/nav-currency/nav-currency';
+import { useGlobalState } from './config/states';
 
 
 export function App() {
@@ -16,6 +17,10 @@ export function App() {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   const dark = colorScheme === 'dark';
+
+  const currency = useGlobalState("defaultCurrency");
+  const crypto = useGlobalState("defaultCrypto");
+
 
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
@@ -45,6 +50,9 @@ export function App() {
                 >
                     {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
                   </ActionIcon>
+                  <Button onClick={() => {
+                    console.log("Curr: " + currency[0] + "\nCrypto: " + crypto[0])
+                  }}>essa</Button>
                 </Group></Group>
                 }
             </Header>}

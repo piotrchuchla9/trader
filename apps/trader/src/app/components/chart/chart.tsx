@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2';
 // @ts-ignore
 import faker from 'faker';
 
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -55,6 +56,7 @@ export const data = {
 export interface ChartProps {}
 
 export function Chart(props: ChartProps) {
+
   return <Line options={options} data={data} />;
 }
 
