@@ -44,7 +44,7 @@ export function App() {
                   color={dark ? 'yellow' : 'blue'}
                   onClick={() => {
                     toggleColorScheme();
-                    if(dark === true) {
+                    if (dark === true) {
                       setGlobalState("currentTheme", 'dark');
                     } else {
                       setGlobalState("currentTheme", 'light');
@@ -55,17 +55,15 @@ export function App() {
                     {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
                   </ActionIcon>
                 </Group></Group>
-                }
+            }
             </Header>}
           styles={(theme) => ({
             main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
           })}
         >
+            <MainInfo />
 
-          <MainInfo />
-
-          <Chart />
-
+            <Chart />
 
 
 

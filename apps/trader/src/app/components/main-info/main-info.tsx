@@ -26,9 +26,9 @@ export function MainInfo(props: MainInfoProps) {
   
 
   return (
-    <Card p="md">
+    <Card p="sm">
       <Group position='center'>
-        <Group position='apart' style={{ width: "400px" }}>
+        <Group position='apart' style={{ width: "400px", fontSize: "18px" }}>
           <div>
               <Card.Section>Currency: <b>{currency[0].toUpperCase()}</b></Card.Section>
           </div>
