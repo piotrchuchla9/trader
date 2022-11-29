@@ -1,5 +1,6 @@
 import { Button, Image, List, ThemeIcon } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { setGlobalState, useGlobalState } from '../../config/states'
 
 import styles from './nav-crypto-button.module.scss';
@@ -17,6 +18,8 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
   const currency = useGlobalState("defaultCurrency");
 
   const theme = useGlobalState("currentTheme");
+
+  const [params, setParams] = useSearchParams();
   
   const getTheme = () => {
     if(theme[0] === 'dark') {
@@ -26,8 +29,11 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
     }
   }
 
+
   const handleCryptoIdChange = (e: any) => {
-    setGlobalState("defaultCryptoId", e)
+    // setGlobalState("defaultCryptoId", e);
+    params.set('cryptoId', e);
+    setParams(params);
   }
 
   const handleCryptoNameChange = (e: any) => {
@@ -39,7 +45,6 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
     handleCryptoNameChange(cryptoName);
   }, [value, cryptoName])
   
-
   return (
 
     <List.Item
@@ -57,10 +62,6 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
           setCryptoName(props.name);
           handleCryptoNameChange(cryptoName);
 
-          console.log(
-            "Currency: " + currency[0] + 
-          "\nCryptoId: " + value + 
-          "\nCryptoName: " + cryptoName)
         }}
       >
         <div>{props.name}</div>
@@ -70,3 +71,7 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
 }
 
 export default NavCryptoButton;
+function useParams(): { currency: any; } {
+  throw new Error('Function not implemented.');
+}
+

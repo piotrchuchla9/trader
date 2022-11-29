@@ -29,20 +29,6 @@ ChartJS.register(
   Legend
 );
 
-// export const options = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: 'center' as const,
-//       display: false,
-//     },
-//     title: {
-//       display: true,
-//       text: '',
-//     },
-//   },
-// };
-
 
 /* eslint-disable-next-line */
 export interface ChartProps { }
@@ -50,7 +36,7 @@ export interface ChartProps { }
 export function Chart(props: ChartProps) {
 
   const [historicData, setHistoricData] = useState<any>();
-  const [days, setDays] = useState(4);
+  const [days, setDays] = useState(7);
   const choosenCurrency = useGlobalState("defaultCurrency");
   const [currency, setCurrency] = useState(choosenCurrency);
   const choosenCryptoId = useGlobalState("defaultCryptoId");
