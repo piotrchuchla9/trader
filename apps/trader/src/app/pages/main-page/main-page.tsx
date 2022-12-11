@@ -36,10 +36,10 @@ export function MainPage(props: MainPageProps) {
 
   
 
-  useEffect(() => {   
-    console.log(params.get("currency"));
-    console.log(params.get("cryptoId"));
-  }, [params])
+  // useEffect(() => {   
+  //   console.log(params.get("currency"));
+  //   console.log(params.get("cryptoId"));
+  // }, [params])
   
 
   return (

@@ -17,6 +17,7 @@ import { HistoricalChart } from '../../config/api';
 import { useGlobalState } from '../../config/states';
 import { Button, Group, Loader } from '@mantine/core';
 import { chartDays } from '../../config/data';
+import { useSearchParams } from 'react-router-dom';
 
 
 ChartJS.register(
@@ -38,20 +39,25 @@ export function Chart(props: ChartProps) {
   const [historicData, setHistoricData] = useState<any>();
   const [days, setDays] = useState(7);
   const choosenCurrency = useGlobalState("defaultCurrency");
-  const [currency, setCurrency] = useState(choosenCurrency);
+  // const [currency, setCurrency] = useState(choosenCurrency);
   const choosenCryptoId = useGlobalState("defaultCryptoId");
-  const [cryptoId, setCryptoId] = useState(choosenCryptoId);
+  // const [cryptoId, setCryptoId] = useState(choosenCryptoId);
+  const [currency, setCurrency] = useState<string>('usd');
+  const [cryptoId, setCryptoId] = useState<string>('bitcoin');
 
+  const [params] = useSearchParams();
 
   const fetchCryptoData = async () => {
-    const { data } = await axios.get(HistoricalChart(cryptoId[0], days, currency[0]));
+    const { data } = await axios.get(HistoricalChart(cryptoId, days, currency));
     setHistoricData(data.prices)
   }
 
   useEffect(() => {
     fetchCryptoData();
-    console.log(days)
-  }, [currency[0], days, cryptoId[0]])
+    setCurrency(params.get('currency') as string);
+    setCryptoId(params.get('cryptoId') as string);
+
+  }, [currency, days, cryptoId, params])
 
 
   return <div>
@@ -93,7 +99,7 @@ export function Chart(props: ChartProps) {
               datasets: [
                 {
                   data: historicData.map((cryptoId: any[]) => cryptoId[1]),
-                  label: `Price (Past ${days} Days) in ${currency[0]}`,
+                  label: `Price (Past ${days} Days) in ${currency}`,
                   borderColor: "purple",
                   backgroundColor: 'red',
                 }

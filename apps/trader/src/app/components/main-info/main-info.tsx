@@ -1,16 +1,19 @@
 import { Card, Group } from '@mantine/core';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setGlobalState, useGlobalState } from '../../config/states';
-import styles from './main-info.module.scss';
+import { useSearchParams } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface MainInfoProps { }
 
 export function MainInfo(props: MainInfoProps) {
 
-  const currency = useGlobalState("defaultCurrency");
-  const cryptoName = useGlobalState("defaultCryptoName");
-  const cryptoId = useGlobalState("defaultCryptoId");
+  // const currency = useGlobalState("defaultCurrency");
+  // const cryptoName = useGlobalState("defaultCryptoName");
+  // const cryptoId = useGlobalState("defaultCryptoId");
+  const [params] = useSearchParams();
+  const [currency, setCurrency] = useState<string>('btc');
+  const [cryptoId, setCryptoId] = useState<string>('bitcoin');
 
   const handleCryptoChangeName = (name: any) => {
     setGlobalState("defaultCryptoName", name);
@@ -20,9 +23,11 @@ export function MainInfo(props: MainInfoProps) {
   }
 
   useEffect(() => {
-    handleCryptoChangeName(cryptoName);
-    handleCryptoChangeId(cryptoId);
-  }, [])
+    // handleCryptoChangeName(cryptoName);
+    // handleCryptoChangeId(cryptoId);
+    setCurrency(params.get('currency') as string);
+    setCryptoId(params.get('cryptoId') as string);
+  }, [params])
   
 
   return (
@@ -30,10 +35,10 @@ export function MainInfo(props: MainInfoProps) {
       <Group position='center'>
         <Group position='apart' style={{ width: "400px", fontSize: "18px" }}>
           <div>
-              <Card.Section>Currency: <b>{currency[0].toUpperCase()}</b></Card.Section>
+              <Card.Section>Currency: <b>{currency.toUpperCase()}</b></Card.Section>
           </div>
           <div>
-              <Card.Section>Crypto: <b>{cryptoName[0]}</b></Card.Section>
+              <Card.Section>Crypto: <b>{cryptoId.toUpperCase()}</b></Card.Section>
           </div>
         </Group>
       </Group>

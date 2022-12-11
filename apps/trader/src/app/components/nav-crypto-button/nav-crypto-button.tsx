@@ -71,7 +71,5 @@ export function NavCryptoButton(props: NavCryptoButtonProps) {
 }
 
 export default NavCryptoButton;
-function useParams(): { currency: any; } {
-  throw new Error('Function not implemented.');
-}
+
 
