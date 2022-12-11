@@ -17,6 +17,8 @@
     "chart.js": "^4.0.1",
     "core-js": "^3.26.1",
     "faker": "5.5.3",
+    "google-image-chart": "^1.2.0",
+    "moment": "^2.29.4",
     "react": "18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-charts": "^3.0.0-beta.50",
@@ -24,6 +26,7 @@
     "react-hooks-global-state": "^2.0.0",
     "react-router-dom": "^6.4.3",
     "regenerator-runtime": "0.13.7",
+    "timeseries-analysis": "^1.0.12",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
@@ -40,6 +43,7 @@
     "@testing-library/react": "13.4.0",
     "@types/faker": "^6.6.9",
     "@types/jest": "28.1.1",
+    "@types/moment": "^2.13.0",
     "@types/node": "16.11.7",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",

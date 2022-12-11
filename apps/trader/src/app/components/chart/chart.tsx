@@ -36,6 +36,8 @@ export interface ChartProps { }
 
 export function Chart(props: ChartProps) {
 
+
+
   const [historicData, setHistoricData] = useState<any>();
   const [days, setDays] = useState(7);
   const choosenCurrency = useGlobalState("defaultCurrency");
@@ -44,21 +46,44 @@ export function Chart(props: ChartProps) {
   // const [cryptoId, setCryptoId] = useState(choosenCryptoId);
   const [currency, setCurrency] = useState<string>('usd');
   const [cryptoId, setCryptoId] = useState<string>('bitcoin');
-
+  const [prices, setPrices] = useState<any>();
+  const [arrLen, setArrLen] = useState<any>();
   const [params] = useSearchParams();
 
+  let len = 0;
   const fetchCryptoData = async () => {
     const { data } = await axios.get(HistoricalChart(cryptoId, days, currency));
-    setHistoricData(data.prices)
+    setHistoricData(data.prices);
+
+    const arr: any[] = [];
+    len = 0;
+    Object.keys(data.prices).forEach(function(key) {
+      arr.push(data.prices[key][1]);
+      len++;
+      setArrLen(len);
+    })
+    setPrices(arr);
   }
 
   useEffect(() => {
     fetchCryptoData();
     setCurrency(params.get('currency') as string);
     setCryptoId(params.get('cryptoId') as string);
-
   }, [currency, days, cryptoId, params])
 
+  // SMA
+  const avg = 7;
+  const movingAverage = [];
+
+  for (let i = 0; i < arrLen-(avg-1); i++) {
+    const threeDataPoints = prices.slice(i, avg + i);
+    threeDataPoints.reduce((total: any, num: any) => (total + num)/ avg);
+    movingAverage.push(threeDataPoints.reduce((total: any, num: any) => total + num) / avg);
+  }
+  console.log(prices)
+  console.log(movingAverage)
+
+  
 
   return <div>
     {!historicData ?
@@ -69,7 +94,7 @@ export function Chart(props: ChartProps) {
           </div>
         </div>
       ) : (
-        <div>
+        <div style={{ marginTop: '20px' }}>
           <>
             <Line options={{
               interaction: {
@@ -79,13 +104,13 @@ export function Chart(props: ChartProps) {
               responsive: true,
               plugins: {
                 legend: {
-                  position: 'center' as const,
-                  display: false,
-                },
-                title: {
-                  display: true,
-                  text: '',
-                },
+                  position: 'top' as const,
+                  title: {
+                    display: true,
+                    text: `Price Past ${days} days`,
+                  },
+                }
+                
               },
             }} data={{
               labels: historicData.map((cryptoId: (string | number | Date)[]) => {
@@ -99,9 +124,14 @@ export function Chart(props: ChartProps) {
               datasets: [
                 {
                   data: historicData.map((cryptoId: any[]) => cryptoId[1]),
-                  label: `Price (Past ${days} Days) in ${currency}`,
+                  label: `Actual Price`,
                   borderColor: "purple",
                   backgroundColor: 'red',
+                }, {
+                  data: movingAverage,
+                  label: `SMA`,
+                  borderColor: "green",
+                  backgroundColor: 'yellow',
                 }
               ],
             }} />
@@ -140,3 +170,7 @@ export function Chart(props: ChartProps) {
 }
 
 export default Chart;
+function typeOf(arr: any[]): any {
+  throw new Error('Function not implemented.');
+}
+
