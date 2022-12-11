@@ -18,6 +18,7 @@ import { useGlobalState } from '../../config/states';
 import { Button, Group, Loader } from '@mantine/core';
 import { chartDays } from '../../config/data';
 import { useSearchParams } from 'react-router-dom';
+import { sma } from '../../indicators/sma'
 
 
 ChartJS.register(
@@ -31,12 +32,11 @@ ChartJS.register(
 );
 
 
+
 /* eslint-disable-next-line */
 export interface ChartProps { }
 
 export function Chart(props: ChartProps) {
-
-
 
   const [historicData, setHistoricData] = useState<any>();
   const [days, setDays] = useState(7);
@@ -72,18 +72,14 @@ export function Chart(props: ChartProps) {
   }, [currency, days, cryptoId, params])
 
   // SMA
-  const avg = 7;
-  const movingAverage = [];
+  // const avg = 7;
+  // const movingAverage = [];
 
-  for (let i = 0; i < arrLen-(avg-1); i++) {
-    const threeDataPoints = prices.slice(i, avg + i);
-    threeDataPoints.reduce((total: any, num: any) => (total + num)/ avg);
-    movingAverage.push(threeDataPoints.reduce((total: any, num: any) => total + num) / avg);
-  }
-  console.log(prices)
-  console.log(movingAverage)
-
-  
+  // for (let i = 0; i < arrLen-(avg-1); i++) {
+  //   const threeDataPoints = prices.slice(i, avg + i);
+  //   threeDataPoints.reduce((total: any, num: any) => (total + num)/ avg);
+  //   movingAverage.push(threeDataPoints.reduce((total: any, num: any) => total + num) / avg);
+  // }
 
   return <div>
     {!historicData ?
@@ -128,7 +124,7 @@ export function Chart(props: ChartProps) {
                   borderColor: "purple",
                   backgroundColor: 'red',
                 }, {
-                  data: movingAverage,
+                  data: sma(prices, arrLen, 7),
                   label: `SMA`,
                   borderColor: "green",
                   backgroundColor: 'yellow',
