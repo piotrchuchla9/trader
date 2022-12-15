@@ -35,10 +35,10 @@ export function MainInfo(props: MainInfoProps) {
       <Group position='center'>
         <Group position='apart' style={{ width: "400px", fontSize: "18px" }}>
           <div>
-              <Card.Section>Currency: <b>{currency.toUpperCase()}</b></Card.Section>
+              <Card.Section>Currency: <b>{currency}</b></Card.Section>
           </div>
           <div>
-              <Card.Section>Crypto: <b>{cryptoId.toUpperCase()}</b></Card.Section>
+              <Card.Section>Crypto: <b>{cryptoId}</b></Card.Section>
           </div>
         </Group>
       </Group>

@@ -18,7 +18,8 @@ import { useGlobalState } from '../../config/states';
 import { Button, Group, Loader } from '@mantine/core';
 import { chartDays } from '../../config/data';
 import { useSearchParams } from 'react-router-dom';
-import { sma } from '../../indicators/sma'
+import { sma } from '../../indicators/sma';
+import { ema } from '../../indicators/ema';
 
 
 ChartJS.register(
@@ -128,6 +129,11 @@ export function Chart(props: ChartProps) {
                   label: `SMA`,
                   borderColor: "green",
                   backgroundColor: 'yellow',
+                }, {
+                  data: ema(prices, arrLen, 7),
+                  label: `EMA`,
+                  borderColor: "white",
+                  backgroundColor: 'orange',
                 }
               ],
             }} />
