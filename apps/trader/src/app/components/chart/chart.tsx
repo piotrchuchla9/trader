@@ -20,6 +20,7 @@ import { chartDays } from '../../config/data';
 import { useSearchParams } from 'react-router-dom';
 import { sma } from '../../indicators/sma';
 import { ema } from '../../indicators/ema';
+import { macd } from '../../indicators/macd';
 
 
 ChartJS.register(
@@ -70,6 +71,7 @@ export function Chart(props: ChartProps) {
     fetchCryptoData();
     setCurrency(params.get('currency') as string);
     setCryptoId(params.get('cryptoId') as string);
+    // console.log(macd(prices, arrLen))
   }, [currency, days, cryptoId, params])
 
   // SMA

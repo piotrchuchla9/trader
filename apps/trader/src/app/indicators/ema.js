@@ -5,7 +5,7 @@ export const ema = (arr, len, peroid) => {
   let calcEma = arr[0];
   for(let i = 0; i < len; i++) {
     calcEma = (arr[i] * k) + (calcEma * (1-k));
-    res.push((arr[i] * k) + (calcEma * (1-k)))
+    res.push(calcEma)
   }
 
   return res;
