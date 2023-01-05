@@ -15,12 +15,13 @@ import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 import { HistoricalChart } from '../../config/api';
 import { useGlobalState } from '../../config/states';
-import { Button, Group, Loader } from '@mantine/core';
+import { Button, Group, Loader, Text } from '@mantine/core';
 import { chartDays } from '../../config/data';
 import { useSearchParams } from 'react-router-dom';
 import { sma } from '../../indicators/sma';
 import { ema } from '../../indicators/ema';
 import { macd } from '../../indicators/macd';
+import { zero } from '../../indicators/zero';
 
 
 ChartJS.register(
@@ -50,6 +51,7 @@ export function Chart(props: ChartProps) {
   const [cryptoId, setCryptoId] = useState<string>('bitcoin');
   const [prices, setPrices] = useState<any>();
   const [arrLen, setArrLen] = useState<any>();
+  const [zeroLine, setZeroLine] = useState<object>([]);
   const [params] = useSearchParams();
 
   let len = 0;
@@ -59,7 +61,7 @@ export function Chart(props: ChartProps) {
 
     const arr: any[] = [];
     len = 0;
-    Object.keys(data.prices).forEach(function(key) {
+    Object.keys(data.prices).forEach(function (key) {
       arr.push(data.prices[key][1]);
       len++;
       setArrLen(len);
@@ -71,18 +73,9 @@ export function Chart(props: ChartProps) {
     fetchCryptoData();
     setCurrency(params.get('currency') as string);
     setCryptoId(params.get('cryptoId') as string);
-    // console.log(macd(prices, arrLen))
   }, [currency, days, cryptoId, params])
 
-  // SMA
-  // const avg = 7;
-  // const movingAverage = [];
 
-  // for (let i = 0; i < arrLen-(avg-1); i++) {
-  //   const threeDataPoints = prices.slice(i, avg + i);
-  //   threeDataPoints.reduce((total: any, num: any) => (total + num)/ avg);
-  //   movingAverage.push(threeDataPoints.reduce((total: any, num: any) => total + num) / avg);
-  // }
 
   return <div>
     {!historicData ?
@@ -109,7 +102,7 @@ export function Chart(props: ChartProps) {
                     text: `Price Past ${days} days`,
                   },
                 }
-                
+
               },
             }} data={{
               labels: historicData.map((cryptoId: (string | number | Date)[]) => {
@@ -137,6 +130,7 @@ export function Chart(props: ChartProps) {
                   borderColor: "white",
                   backgroundColor: 'orange',
                 }
+
               ],
             }} />
             <Group position='center' style={{ marginTop: "20px" }}>
@@ -163,6 +157,54 @@ export function Chart(props: ChartProps) {
                 }
               })}
             </Group>
+
+            <div style={{ marginTop: '20px' }}>
+              <Text
+                style={{ marginTop: '40px' }}
+                ta='center'
+                fz='xl'
+                fw={700}
+              >Is it worth taking action?</Text>
+              <Line options={{
+                interaction: {
+                  intersect: false,
+                  mode: 'index',
+                },
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top' as const,
+                    title: {
+                      display: true,
+                      // text: `Is it worth to invest?`,
+                    },
+                  }
+                },
+              }} data={{
+                labels: historicData.map((cryptoId: (string | number | Date)[]) => {
+                  const date = new Date(cryptoId[0]);
+                  const time =
+                    date.getHours() > 12
+                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                      : `${date.getHours()}:${date.getMinutes()} AM`;
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+                datasets: [
+                  {
+                    data: macd(prices, arrLen),
+                    label: `MACD`,
+                    borderColor: "yellow",
+                    backgroundColor: 'blue',
+                  },
+                  {
+                    data: zero(arrLen),
+                    label: `Zero Line`,
+                    borderColor: "red",
+                    backgroundColor: 'red',
+                  },
+                ],
+              }} />
+            </div>
 
           </>
         </div>
