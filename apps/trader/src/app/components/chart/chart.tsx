@@ -15,13 +15,16 @@ import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 import { HistoricalChart } from '../../config/api';
 import { useGlobalState } from '../../config/states';
-import { Button, Group, Loader, Text } from '@mantine/core';
+import { Button, Group, Loader, NumberInput, Text } from '@mantine/core';
 import { chartDays } from '../../config/data';
 import { useSearchParams } from 'react-router-dom';
 import { sma } from '../../indicators/sma';
 import { ema } from '../../indicators/ema';
 import { macd } from '../../indicators/macd';
-import { zero } from '../../indicators/zero';
+import { myValue } from '../helpers/myValue';
+import { std } from '../../indicators/std';
+import { rsi } from '../../indicators/rsi';
+import { numberLine } from '../helpers/numberLine';
 
 
 ChartJS.register(
@@ -51,7 +54,7 @@ export function Chart(props: ChartProps) {
   const [cryptoId, setCryptoId] = useState<string>('bitcoin');
   const [prices, setPrices] = useState<any>();
   const [arrLen, setArrLen] = useState<any>();
-  const [zeroLine, setZeroLine] = useState<object>([]);
+  const [inputValue, setInputValue] = useState<number | undefined>(undefined);
   const [params] = useSearchParams();
 
   let len = 0;
@@ -69,13 +72,13 @@ export function Chart(props: ChartProps) {
     setPrices(arr);
   }
 
+  console.log(rsi(prices, arrLen))
+
   useEffect(() => {
     fetchCryptoData();
     setCurrency(params.get('currency') as string);
     setCryptoId(params.get('cryptoId') as string);
   }, [currency, days, cryptoId, params])
-
-
 
   return <div>
     {!historicData ?
@@ -86,8 +89,28 @@ export function Chart(props: ChartProps) {
           </div>
         </div>
       ) : (
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: '10px', width: '99%' }}>
+
+          <div>
+            <Group position='center'>
+              <div style={{ width: '30%' }}>
+                <NumberInput
+                  label={`Compare the price of a cryptocurrency with the data below in ${currency}`}
+                  placeholder={`Your crypto in ${currency}`}
+                  min={0}
+                  decimalSeparator="."
+                  step={5}
+                  precision={1}
+                  stepHoldDelay={500}
+                  stepHoldInterval={(t) => Math.max(1500 / t ** 2, 10)}
+                  value={inputValue}
+                  onChange={(val) => setInputValue(val)}
+                />
+              </div>
+            </Group>
+          </div>
           <>
+            <div style={{ marginTop: '20px' }}></div>
             <Line options={{
               interaction: {
                 intersect: false,
@@ -129,6 +152,11 @@ export function Chart(props: ChartProps) {
                   label: `EMA`,
                   borderColor: "white",
                   backgroundColor: 'orange',
+                }, {
+                  data: myValue(inputValue, arrLen),
+                  label: `Your Crypto`,
+                  borderColor: "cyan",
+                  backgroundColor: 'cyan',
                 }
 
               ],
@@ -197,8 +225,53 @@ export function Chart(props: ChartProps) {
                     backgroundColor: 'blue',
                   },
                   {
-                    data: zero(arrLen),
+                    data: numberLine(arrLen, 0),
                     label: `Zero Line`,
+                    borderColor: "red",
+                    backgroundColor: 'red',
+                  },
+                ],
+              }} />
+              <Line options={{
+                interaction: {
+                  intersect: false,
+                  mode: 'index',
+                },
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top' as const,
+                    title: {
+                      display: true,
+                      // text: `Is it worth to invest?`,
+                    },
+                  }
+                },
+              }} data={{
+                labels: historicData.map((cryptoId: (string | number | Date)[]) => {
+                  const date = new Date(cryptoId[0]);
+                  const time =
+                    date.getHours() > 12
+                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                      : `${date.getHours()}:${date.getMinutes()} AM`;
+                  return days === 1 ? time : date.toLocaleDateString();
+                }),
+                datasets: [
+                  {
+                    data: rsi(prices, arrLen),
+                    label: `RSI`,
+                    borderColor: "purple",
+                    backgroundColor: 'cyan',
+                  },
+                  {
+                    data: numberLine(arrLen, 70),
+                    label: `High Signal`,
+                    borderColor: "green",
+                    backgroundColor: 'green',
+                  },
+                  {
+                    data: numberLine(arrLen, 30),
+                    label: `Low Signal`,
                     borderColor: "red",
                     backgroundColor: 'red',
                   },
