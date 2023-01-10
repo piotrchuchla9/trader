@@ -72,7 +72,14 @@ export function Chart(props: ChartProps) {
     setPrices(arr);
   }
 
-  console.log(rsi(prices, arrLen))
+  // const rsiVar = rsia(prices, arrLen)
+  // const rsiFinal = []
+  // for(const i in rsiVar) {
+  //   rsiFinal.push(rsia(prices, arrLen)[i].toFixed(3))
+  // }
+  // console.log(rsiFinal)
+  // console.log(newRsi(prices, arrLen))
+
 
   useEffect(() => {
     fetchCryptoData();
@@ -232,6 +239,12 @@ export function Chart(props: ChartProps) {
                   },
                 ],
               }} />
+              <Text
+                style={{ marginTop: '40px' }}
+                ta='center'
+                fz='xl'
+                fw={700}
+              >Checkout the signals</Text>
               <Line options={{
                 interaction: {
                   intersect: false,

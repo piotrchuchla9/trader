@@ -26,8 +26,10 @@
     "react-hooks-global-state": "^2.0.0",
     "react-router-dom": "^6.4.3",
     "regenerator-runtime": "0.13.7",
+    "technicalindicatorslight": "0.0.2",
     "timeseries-analysis": "^1.0.12",
-    "tslib": "^2.4.1"
+    "tslib": "^2.4.1",
+    "tulind": "^0.8.20"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
