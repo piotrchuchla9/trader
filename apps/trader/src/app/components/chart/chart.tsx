@@ -148,7 +148,7 @@ export function Chart(props: ChartProps) {
                   data: historicData.map((cryptoId: any[]) => cryptoId[1]),
                   label: `Actual Price`,
                   borderColor: "purple",
-                  backgroundColor: 'red',
+                  backgroundColor: '#0771B2',
                 }, {
                   data: sma(prices, arrLen, 7),
                   label: `SMA`,
@@ -157,7 +157,7 @@ export function Chart(props: ChartProps) {
                 }, {
                   data: ema(prices, arrLen, 7),
                   label: `EMA`,
-                  borderColor: "white",
+                  borderColor: "red",
                   backgroundColor: 'orange',
                 }, {
                   data: myValue(inputValue, arrLen),
@@ -228,8 +228,8 @@ export function Chart(props: ChartProps) {
                   {
                     data: macd(prices, arrLen),
                     label: `MACD`,
-                    borderColor: "yellow",
-                    backgroundColor: 'blue',
+                    borderColor: "purple",
+                    backgroundColor: 'cyan',
                   },
                   {
                     data: numberLine(arrLen, 0),
