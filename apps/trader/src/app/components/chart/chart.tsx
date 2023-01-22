@@ -72,14 +72,6 @@ export function Chart(props: ChartProps) {
     setPrices(arr);
   }
 
-  // const rsiVar = rsia(prices, arrLen)
-  // const rsiFinal = []
-  // for(const i in rsiVar) {
-  //   rsiFinal.push(rsia(prices, arrLen)[i].toFixed(3))
-  // }
-  // console.log(rsiFinal)
-  // console.log(newRsi(prices, arrLen))
-
 
   useEffect(() => {
     fetchCryptoData();
@@ -98,7 +90,7 @@ export function Chart(props: ChartProps) {
       ) : (
         <div style={{ marginTop: '10px', width: '99%' }}>
 
-          <div>
+          <div id='data'>
             <Group position='center'>
               <div style={{ width: '30%' }}>
                 <NumberInput
