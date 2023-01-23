@@ -15,7 +15,7 @@ import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 import { HistoricalChart } from '../../config/api';
 import { useGlobalState } from '../../config/states';
-import { Button, Group, Loader, NumberInput, Text } from '@mantine/core';
+import { Button, Group, Loader, NumberInput, Text, Stack, Collapse } from '@mantine/core';
 import { chartDays } from '../../config/data';
 import { useSearchParams } from 'react-router-dom';
 import { sma } from '../../indicators/sma';
@@ -25,6 +25,8 @@ import { myValue } from '../helpers/myValue';
 import { std } from '../../indicators/std';
 import { rsi } from '../../indicators/rsi';
 import { numberLine } from '../helpers/numberLine';
+import { IconArrowDown, IconArrowUp } from '@tabler/icons';
+
 
 
 ChartJS.register(
@@ -57,6 +59,10 @@ export function Chart(props: ChartProps) {
   const [inputValue, setInputValue] = useState<number | undefined>(undefined);
   const [params] = useSearchParams();
 
+  const [openedData, setOpenedData] = useState(true);
+  const [openedMACD, setOpenedMACD] = useState(false);
+  const [openedRSI, setOpenedRSI] = useState(false);
+
   let len = 0;
   const fetchCryptoData = async () => {
     const { data } = await axios.get(HistoricalChart(cryptoId, days, currency));
@@ -74,10 +80,20 @@ export function Chart(props: ChartProps) {
 
 
   useEffect(() => {
-    fetchCryptoData();
+    if(cryptoId !== null) {
+      fetchCryptoData();
+    }
+    
     setCurrency(params.get('currency') as string);
     setCryptoId(params.get('cryptoId') as string);
   }, [currency, days, cryptoId, params])
+
+  const showTextData = 'Show Historical Chart';
+  const hideTextData = 'Hide Historical Chart';
+  const showTextMACD = 'Show MACD Indicator Chart';
+  const hideTextMACD = 'Hide MACD Indicator Chart';
+  const showTextRSI = 'Show RSI Indicator Chart';
+  const hideTextRSI = 'Hide RSI Indicator Chart';
 
   return <div>
     {!historicData ?
@@ -90,108 +106,45 @@ export function Chart(props: ChartProps) {
       ) : (
         <div style={{ marginTop: '10px', width: '99%' }}>
 
-          <div id='data'>
-            <Group position='center'>
-              <div style={{ width: '30%' }}>
-                <NumberInput
-                  label={`Compare the price of a cryptocurrency with the data below in ${currency}`}
-                  placeholder={`Your crypto in ${currency}`}
-                  min={0}
-                  decimalSeparator="."
-                  step={5}
-                  precision={1}
-                  stepHoldDelay={500}
-                  stepHoldInterval={(t) => Math.max(1500 / t ** 2, 10)}
-                  value={inputValue}
-                  onChange={(val) => setInputValue(val)}
-                />
-              </div>
-            </Group>
-          </div>
+          <Group position='center' style={{ marginTop: 20, marginBottom: 20 }}>
+            <Button color='grape' variant='light' rightIcon={openedData ? <IconArrowUp /> : <IconArrowDown />}
+              onClick={() => setOpenedData((o) => !o)}
+            >
+              {openedData ? hideTextData : showTextData}
+            </Button>
+            <Button color='grape' variant='light' rightIcon={openedMACD ? <IconArrowUp /> : <IconArrowDown />}
+              onClick={() => setOpenedMACD((o) => !o)}
+            >
+              {openedMACD ? hideTextMACD : showTextMACD}
+            </Button>
+            <Button color='grape' variant='light' rightIcon={openedRSI ? <IconArrowUp /> : <IconArrowDown />}
+              onClick={() => setOpenedRSI((o) => !o)}
+            >
+              {openedRSI ? hideTextRSI : showTextRSI}
+            </Button>
+          </Group>
+
           <>
-            <div style={{ marginTop: '20px' }}></div>
-            <Line options={{
-              interaction: {
-                intersect: false,
-                mode: 'index',
-              },
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top' as const,
-                  title: {
-                    display: true,
-                    text: `Price Past ${days} days`,
-                  },
-                }
-
-              },
-            }} data={{
-              labels: historicData.map((cryptoId: (string | number | Date)[]) => {
-                const date = new Date(cryptoId[0]);
-                const time =
-                  date.getHours() > 12
-                    ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                    : `${date.getHours()}:${date.getMinutes()} AM`;
-                return days === 1 ? time : date.toLocaleDateString();
-              }),
-              datasets: [
-                {
-                  data: historicData.map((cryptoId: any[]) => cryptoId[1]),
-                  label: `Actual Price`,
-                  borderColor: "purple",
-                  backgroundColor: '#0771B2',
-                }, {
-                  data: sma(prices, arrLen, 7),
-                  label: `SMA`,
-                  borderColor: "green",
-                  backgroundColor: 'yellow',
-                }, {
-                  data: ema(prices, arrLen, 7),
-                  label: `EMA`,
-                  borderColor: "red",
-                  backgroundColor: 'orange',
-                }, {
-                  data: myValue(inputValue, arrLen),
-                  label: `Your Crypto`,
-                  borderColor: "cyan",
-                  backgroundColor: 'cyan',
-                }
-
-              ],
-            }} />
-            <Group position='center' style={{ marginTop: "20px" }}>
-              {chartDays.map((el) => {
-                if (el.value === days) {
-                  return <Button variant='light' color='violet'
-                    key={el.value}
-                    onClick={() => {
-                      setDays(el.value);
-                    }}
-                    disabled
-                  >
-                    {el.label}
-                  </Button>
-                } else {
-                  return <Button variant='light' color='violet'
-                    key={el.value}
-                    onClick={() => {
-                      setDays(el.value);
-                    }}
-                  >
-                    {el.label}
-                  </Button>
-                }
-              })}
-            </Group>
-
-            <div style={{ marginTop: '20px' }}>
-              <Text
-                style={{ marginTop: '40px' }}
-                ta='center'
-                fz='xl'
-                fw={700}
-              >Is it worth taking action?</Text>
+            <Collapse in={openedData}>
+              <div>
+                <Group position='center'>
+                  <div style={{ width: '30%' }}>
+                    <NumberInput
+                      label={`Compare the price of a cryptocurrency with the data below in ${currency}`}
+                      placeholder={`Your crypto in ${currency}`}
+                      min={0}
+                      decimalSeparator="."
+                      step={5}
+                      precision={1}
+                      stepHoldDelay={500}
+                      stepHoldInterval={(t) => Math.max(1500 / t ** 2, 10)}
+                      value={inputValue}
+                      onChange={(val) => setInputValue(val)}
+                    />
+                  </div>
+                </Group>
+              </div>
+              <div style={{ marginTop: '20px' }}></div>
               <Line options={{
                 interaction: {
                   intersect: false,
@@ -203,9 +156,10 @@ export function Chart(props: ChartProps) {
                     position: 'top' as const,
                     title: {
                       display: true,
-                      // text: `Is it worth to invest?`,
+                      text: `Price Past ${days} days`,
                     },
                   }
+
                 },
               }} data={{
                 labels: historicData.map((cryptoId: (string | number | Date)[]) => {
@@ -218,70 +172,155 @@ export function Chart(props: ChartProps) {
                 }),
                 datasets: [
                   {
-                    data: macd(prices, arrLen),
-                    label: `MACD`,
+                    data: historicData.map((cryptoId: any[]) => cryptoId[1]),
+                    label: `Actual Price`,
                     borderColor: "purple",
-                    backgroundColor: 'cyan',
-                  },
-                  {
-                    data: numberLine(arrLen, 0),
-                    label: `Zero Line`,
-                    borderColor: "red",
-                    backgroundColor: 'red',
-                  },
-                ],
-              }} />
-              <Text
-                style={{ marginTop: '40px' }}
-                ta='center'
-                fz='xl'
-                fw={700}
-              >Checkout the signals</Text>
-              <Line options={{
-                interaction: {
-                  intersect: false,
-                  mode: 'index',
-                },
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top' as const,
-                    title: {
-                      display: true,
-                      // text: `Is it worth to invest?`,
-                    },
-                  }
-                },
-              }} data={{
-                labels: historicData.map((cryptoId: (string | number | Date)[]) => {
-                  const date = new Date(cryptoId[0]);
-                  const time =
-                    date.getHours() > 12
-                      ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                      : `${date.getHours()}:${date.getMinutes()} AM`;
-                  return days === 1 ? time : date.toLocaleDateString();
-                }),
-                datasets: [
-                  {
-                    data: rsi(prices, arrLen),
-                    label: `RSI`,
-                    borderColor: "purple",
-                    backgroundColor: 'cyan',
-                  },
-                  {
-                    data: numberLine(arrLen, 70),
-                    label: `High Signal`,
+                    backgroundColor: '#0771B2',
+                  }, {
+                    data: sma(prices, arrLen, 7),
+                    label: `SMA`,
                     borderColor: "green",
-                    backgroundColor: 'green',
-                  },
-                  {
-                    data: numberLine(arrLen, 30),
-                    label: `Low Signal`,
+                    backgroundColor: 'yellow',
+                  }, {
+                    data: ema(prices, arrLen, 7),
+                    label: `EMA`,
                     borderColor: "red",
-                    backgroundColor: 'red',
-                  },
+                    backgroundColor: 'orange',
+                  }, {
+                    data: myValue(inputValue, arrLen),
+                    label: `Your Crypto`,
+                    borderColor: "cyan",
+                    backgroundColor: 'cyan',
+                  }
+
                 ],
               }} />
+              <Group position='center' style={{ marginTop: "20px" }}>
+                {chartDays.map((el) => {
+                  if (el.value === days) {
+                    return <Button variant='light' color='violet'
+                      key={el.value}
+                      onClick={() => {
+                        setDays(el.value);
+                      }}
+                      disabled
+                    >
+                      {el.label}
+                    </Button>
+                  } else {
+                    return <Button variant='light' color='violet'
+                      key={el.value}
+                      onClick={() => {
+                        setDays(el.value);
+                      }}
+                    >
+                      {el.label}
+                    </Button>
+                  }
+                })}
+              </Group>
+            </Collapse>
+            <div style={{ marginTop: '20px' }}>
+              <Collapse in={openedMACD}>
+                <Text
+                  style={{ marginTop: '40px' }}
+                  ta='center'
+                  fz='xl'
+                  fw={700}
+                >Is it worth taking action?</Text>
+                <Line options={{
+                  interaction: {
+                    intersect: false,
+                    mode: 'index',
+                  },
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top' as const,
+                      title: {
+                        display: true,
+                        // text: `Is it worth to invest?`,
+                      },
+                    }
+                  },
+                }} data={{
+                  labels: historicData.map((cryptoId: (string | number | Date)[]) => {
+                    const date = new Date(cryptoId[0]);
+                    const time =
+                      date.getHours() > 12
+                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                        : `${date.getHours()}:${date.getMinutes()} AM`;
+                    return days === 1 ? time : date.toLocaleDateString();
+                  }),
+                  datasets: [
+                    {
+                      data: macd(prices, arrLen),
+                      label: `MACD`,
+                      borderColor: "purple",
+                      backgroundColor: 'cyan',
+                    },
+                    {
+                      data: numberLine(arrLen, 0),
+                      label: `Zero Line`,
+                      borderColor: "red",
+                      backgroundColor: 'red',
+                    },
+                  ],
+                }} />
+              </Collapse>
+              <Collapse in={openedRSI}>
+                <Text
+                  style={{ marginTop: '40px' }}
+                  ta='center'
+                  fz='xl'
+                  fw={700}
+                >Checkout the signals</Text>
+                <Line options={{
+                  interaction: {
+                    intersect: false,
+                    mode: 'index',
+                  },
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top' as const,
+                      title: {
+                        display: true,
+                        // text: `Is it worth to invest?`,
+                      },
+                    }
+                  },
+                }} data={{
+                  labels: historicData.map((cryptoId: (string | number | Date)[]) => {
+                    const date = new Date(cryptoId[0]);
+                    const time =
+                      date.getHours() > 12
+                        ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                        : `${date.getHours()}:${date.getMinutes()} AM`;
+                    return days === 1 ? time : date.toLocaleDateString();
+                  }),
+                  datasets: [
+                    {
+                      data: rsi(prices, arrLen),
+                      label: `RSI`,
+                      borderColor: "purple",
+                      backgroundColor: 'cyan',
+                    },
+                    {
+                      data: numberLine(arrLen, 70),
+                      label: `High Signal`,
+                      borderColor: "green",
+                      backgroundColor: 'green',
+                    },
+                    {
+                      data: numberLine(arrLen, 30),
+                      label: `Low Signal`,
+                      borderColor: "red",
+                      backgroundColor: 'red',
+                    },
+                  ],
+                }} />
+              </Collapse>
             </div>
 
           </>
