@@ -35,10 +35,10 @@ export function MainInfo(props: MainInfoProps) {
       <Group position='center'>
         <Group position='apart' style={{ width: "400px", fontSize: "18px" }}>
           <div>
-              <Card.Section>Currency: <b>{currency}</b></Card.Section>
+              <Card.Section>Waluta: <b>{currency}</b></Card.Section>
           </div>
           <div>
-              <Card.Section>Crypto: <b>{cryptoId}</b></Card.Section>
+              <Card.Section>Kryptowaluta: <b>{cryptoId}</b></Card.Section>
           </div>
         </Group>
       </Group>

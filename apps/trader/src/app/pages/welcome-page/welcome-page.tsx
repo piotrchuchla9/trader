@@ -35,7 +35,7 @@ export function WelcomePage(props: WelcomePageProps) {
                 fontWeight: 500,
                 color: '#66023C'
               }}>
-                A simple way to start your adventure with investing in cryptocurrencies
+                Prosty sposób, aby rozpocząć przygodę z inwestowaniem w kryptowaluty
               </h2>
               <Group position='center'>
                 <Button
@@ -46,7 +46,7 @@ export function WelcomePage(props: WelcomePageProps) {
                   radius="xl"
                   onClick={() => navigate('/chart')}
                 >
-                  Get Started</Button>
+                  Zaczynamy</Button>
               </Group>
             </div>
           </div>

@@ -88,12 +88,12 @@ export function Chart(props: ChartProps) {
     setCryptoId(params.get('cryptoId') as string);
   }, [currency, days, cryptoId, params])
 
-  const showTextData = 'Show Historical Chart';
-  const hideTextData = 'Hide Historical Chart';
-  const showTextMACD = 'Show MACD Indicator Chart';
-  const hideTextMACD = 'Hide MACD Indicator Chart';
-  const showTextRSI = 'Show RSI Indicator Chart';
-  const hideTextRSI = 'Hide RSI Indicator Chart';
+  const showTextData = 'Pokaż Wykres Histogramu';
+  const hideTextData = 'Schowaj Wykres Histogramu';
+  const showTextMACD = 'Pokaż Wykres Wskaźnika MACD';
+  const hideTextMACD = 'Schowaj Wykres Wskaźnika MACD';
+  const showTextRSI = 'Pokaż Wykres Wskaźnika RSI';
+  const hideTextRSI = 'Schowaj Wykres Wskaźnika RSI';
 
   return <div>
     {!historicData ?
@@ -130,8 +130,8 @@ export function Chart(props: ChartProps) {
                 <Group position='center'>
                   <div style={{ width: '30%' }}>
                     <NumberInput
-                      label={`Compare the price of a cryptocurrency with the data below in ${currency}`}
-                      placeholder={`Your crypto in ${currency}`}
+                      label={`Porównaj cenę kryptowaluty z danymi poniżej w ${currency}`}
+                      placeholder={`Twoja kryptowaluta w ${currency}`}
                       min={0}
                       decimalSeparator="."
                       step={5}
@@ -156,7 +156,7 @@ export function Chart(props: ChartProps) {
                     position: 'top' as const,
                     title: {
                       display: true,
-                      text: `Price Past ${days} days`,
+                      text: `Ceny z ostatnich ${days} dni`,
                     },
                   }
 
@@ -173,7 +173,7 @@ export function Chart(props: ChartProps) {
                 datasets: [
                   {
                     data: historicData.map((cryptoId: any[]) => cryptoId[1]),
-                    label: `Actual Price`,
+                    label: `Aktualna cena`,
                     borderColor: "purple",
                     backgroundColor: '#0771B2',
                   }, {
@@ -188,7 +188,7 @@ export function Chart(props: ChartProps) {
                     backgroundColor: 'orange',
                   }, {
                     data: myValue(inputValue, arrLen),
-                    label: `Your Crypto`,
+                    label: `Twoja kryptowaluta`,
                     borderColor: "cyan",
                     backgroundColor: 'cyan',
                   }
@@ -227,7 +227,7 @@ export function Chart(props: ChartProps) {
                   ta='center'
                   fz='xl'
                   fw={700}
-                >Is it worth taking action?</Text>
+                >Czy warto podjąć działanie?</Text>
                 <Line options={{
                   interaction: {
                     intersect: false,
@@ -261,7 +261,7 @@ export function Chart(props: ChartProps) {
                     },
                     {
                       data: numberLine(arrLen, 0),
-                      label: `Zero Line`,
+                      label: `Linia sygnału`,
                       borderColor: "red",
                       backgroundColor: 'red',
                     },
@@ -274,7 +274,7 @@ export function Chart(props: ChartProps) {
                   ta='center'
                   fz='xl'
                   fw={700}
-                >Checkout the signals</Text>
+                >Sprawdź sygnały</Text>
                 <Line options={{
                   interaction: {
                     intersect: false,
@@ -308,13 +308,13 @@ export function Chart(props: ChartProps) {
                     },
                     {
                       data: numberLine(arrLen, 70),
-                      label: `High Signal`,
+                      label: `Wysoki sygnał`,
                       borderColor: "green",
                       backgroundColor: 'green',
                     },
                     {
                       data: numberLine(arrLen, 30),
-                      label: `Low Signal`,
+                      label: `Niski sygnał`,
                       borderColor: "red",
                       backgroundColor: 'red',
                     },

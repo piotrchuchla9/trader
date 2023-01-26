@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { MantineProvider, AppShell, Navbar, Text, Header, Group, Modal, ActionIcon, Image, ColorSchemeProvider, ColorScheme, Button, ThemeIcon, Anchor, List } from '@mantine/core';
 import { IconSun, IconMoonStars, IconCheck, IconBan, IconTimeline, IconSwitch2, IconTool, IconQuestionMark } from '@tabler/icons';
 import { useEffect, useState } from 'react';
@@ -91,17 +92,18 @@ export function MainPage(props: MainPageProps) {
                   >
                     <Text align='center' fz={40}
                     >
-                      Data Guide  <ThemeIcon color='grape' variant="light">
+                      Podstawowe Histogramy  <ThemeIcon color='grape' variant="light">
                         <IconTimeline />
                       </ThemeIcon>
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
                       <ThemeIcon color='grape' size="sm" variant="light">
                         <IconTool />
-                      </ThemeIcon> Actual Price
+                      </ThemeIcon> Aktualne Ceny
                     </Text>
                     <Text style={{ marginBottom: 16 }}>
-                      A raw cryptocurrency price chart displays the historical price data for a specific cryptocurrency over a certain period of time. This include the close prices for each period. The chart can be displayed in different time frames, such as daily, weekly, monthly, three months or yearly.<br></br> The raw chart allows you to see the historical price movements of the cryptocurrency and can be used to identify trends and patterns in the market.<br></br> Additionally, this chart can be used for technical analysis to identify key levels of support and resistance, and to potentially identify buy and sell signals.
+                      Wykres surowych cen kryptowalut pokazuje dane historyczne cen danej kryptowaluty w określonym przedziale czasowym. Zawiera on ceny zamknięcia dla każdego okresu. Wykres może być wyświetlany w różnych ramach czasowych, takich jak dzienne, tygodniowe, miesięczne, trzy miesiące lub roczne.<br />
+                      Wykres surowy pozwala zobaczyć ruchy cen historycznych kryptowaluty i może być używany do identyfikowania trendów i wzorców na rynku.<br /> Dodatkowo, ten wykres może być używany do analizy technicznej, aby zidentyfikować ważne poziomy wsparcia i oporu i potencjalnie zidentyfikować sygnały kupna i sprzedaży.
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
                       <ThemeIcon color='grape' size="sm" variant="light">
@@ -109,12 +111,11 @@ export function MainPage(props: MainPageProps) {
                       </ThemeIcon> SMA (Simple Moving Average)
                     </Text>
                     <Text style={{ marginBottom: 16 }}>
-                      SMA is a technical indicator that involves calculating the arithmetic mean of prices from a specific data range. It is one of the simplest trend indicators that helps to analyze price movements in the market.<br></br> SMA is calculated by summing the prices over a certain period and dividing by the number of days in that period.
-
-                      For example, if you want to calculate the SMA of the last 7 days, you would sum the prices of those 7 days and divide by 7.<br />
-                      The SMA chart allows for easy recognition of trends, it is often used as a moving average line which helps investors evaluate if the market is in an uptrend or downtrend.<br /> The SMA indicator is often used in conjunction with other indicators and analysis to get a more complete picture of the market.
-
-                      One of its limitation is that it does not take into account prices from recent days more than others.
+                      SMA to wskaźnik techniczny, który polega na obliczaniu średniej arytmetycznej cen z określonego zakresu danych. Jest to jeden z najprostszych wskaźników trendu, który pomaga analizować ruchy cen na rynku.<br />
+                      SMA jest obliczane przez sumowanie cen przez określony okres i dzielenie przez liczbę dni w tym okresie. Na przykład, jeśli chcesz obliczyć SMA z ostatnich 7 dni, sumujesz ceny tych 7 dni i dzielisz przez 7.<br />
+                      Wykres SMA umożliwia łatwe rozpoznawanie trendów, często jest używany jako linia średniej ruchomej, która pomaga inwestorom ocenić, czy rynek jest w trendzie wzrostowym czy spadkowym.<br />
+                      Wskaźnik SMA często jest używany w połączeniu z innymi wskaźnikami i analizami, aby uzyskać bardziej kompletny obraz rynku. <br />
+                      Jednym z jego ograniczeń jest to, że nie uwzględnia cen z ostatnich dni bardziej niż inne.
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
                       <ThemeIcon color='grape' size="sm" variant="light">
@@ -122,89 +123,91 @@ export function MainPage(props: MainPageProps) {
                       </ThemeIcon> EMA (Exponential Moving Average)
                     </Text>
                     <Text style={{ marginBottom: 16 }}>
-                      EMA is a technical indicator that is similar to Simple Moving Average (SMA), but it places more weight on recent prices to better capture the current trend in the market.<br /> The EMA is calculated by applying a weighting factor to the most recent prices, with the weighting decreasing exponentially as the prices get older. This means that more recent prices have a greater impact on the EMA than older prices. <br />
-
-                      The EMA is often used to identify trends and generate buy and sell signals. When the current price is above the EMA, it is generally considered an indication of an uptrend, while when the current price is below the EMA, it is considered an indication of a downtrend. Additionally, EMA crossovers can also be used as a signal for trend changes.<br />
-
-                      EMA is considered to be more responsive to recent price changes than SMA, which makes it a preferred choice for traders who want to capture short-term movements in the market. However, it's worth to note that EMA also generates more signals and can lead to more false signals than SMA.
+                      EMA to wskaźnik techniczny podobny do średniej kroczącej (SMA), ale kładzie więcej nacisku na ostatnie ceny, aby lepiej odzwierciedlić obecny trend na rynku.<br /> EMA jest obliczana przez zastosowanie współczynnika ważenia do najnowszych cen, z wagami malejącymi wykładniczo wraz z upływem czasu. Oznacza to, że najnowsze ceny mają większy wpływ na EMA niż starsze ceny.<br />
+                      Wskaźnik ten często jest używana do identyfikacji trendów i generowania sygnałów kupna i sprzedaży. Gdy obecna cena jest powyżej EMA, jest to ogólnie uważane za oznakę trendu wzrostowego, podczas gdy gdy obecna cena jest poniżej EMA, jest to uważane za oznakę trendu spadkowego. Dodatkowo, przecięcia EMA mogą być również używane jako sygnał zmiany trendu. <br />
+                      EMA jest uważana za bardziej reaktywną na ostatnie zmiany cen niż SMA, co czyni ją preferowaną opcją dla traderów, którzy chcą uchwycić krótkoterminowe ruchy na rynku. Niemniej jednak warto zauważyć, że EMA generuje również więcej sygnałów i może prowadzić do większej liczby fałszywych sygnałów niż SMA.
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
-                    <ThemeIcon color='grape' size="sm" variant="light">
+                      <ThemeIcon color='grape' size="sm" variant="light">
                         <IconSwitch2 />
-                      </ThemeIcon> Comparsion of EMA and SMA
+                      </ThemeIcon> Porównanie SMA z EMA
                     </Text>
                     <Text style={{ marginBottom: 16 }}>
-                      SMA and EMA are technical indicators used in financial market analysis to determine trends.<br /> SMA is the arithmetic mean of the last n prices, while EMA is a weighted average that places more emphasis on the most recent prices. <br />Both indicators are used to determine trends and buy or sell signals. EMA is often considered more accurate than SMA because it places more emphasis on the most recent data.
+                      SMA i EMA to wskaźniki techniczne używane w analizie rynku finansowego do określania trendów. <br />
+                      SMA jest średnią arytmetyczną ostatnich n cen, podczas gdy EMA jest średnią ważoną, która kładzie większy nacisk na najnowsze ceny.  <br />
+                      Oba wskaźniki służą do określania trendów i sygnałów kupna lub sprzedaży. EMA jest często uważana za bardziej dokładną niż SMA, ponieważ kładzie większy nacisk na najnowsze dane.
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
-                    <ThemeIcon color='grape' size="sm" variant="light">
+                      <ThemeIcon color='grape' size="sm" variant="light">
                         <IconQuestionMark />
-                      </ThemeIcon> Advantages and disadvantages of SMA and EMA indicators:
+                      </ThemeIcon> Zalety i wady wskaźników SMA i EMA:
                     </Text>
                     <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                      Advantages of SMA:
+                      Zalety SMA:
                     </Text>
                     <List withPadding>
                       <List.Item icon={
                         <ThemeIcon color="green" size={24} radius="xl">
                           <IconCheck size={16} />
                         </ThemeIcon>
-                      }>Easy to understand and interpret.</List.Item>
+                      }>Łatwy do zrozumienia.</List.Item>
                       <List.Item icon={
                         <ThemeIcon color="green" size={24} radius="xl">
                           <IconCheck size={16} />
                         </ThemeIcon>
-                      }>Does not require complex calculations.</List.Item>
+                      }>Nie wymaga skomplikowanych kalkulacji.</List.Item>
                       <List.Item icon={
                         <ThemeIcon color="green" size={24} radius="xl">
                           <IconCheck size={16} />
                         </ThemeIcon>
-                      }>It is stable and not prone to changes in the data composition.</List.Item>
+                      }>Jest stabilny i niepodatny na zmiany składu danych.
+                      </List.Item>
                     </List>
                     <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                      Disadvantages of SMA:
+                      Wady SMA:
                     </Text>
                     <List withPadding style={{ marginBottom: 16 }}>
                       <List.Item icon={
                         <ThemeIcon color="red" size={24} radius="xl">
                           <IconBan size={16} />
                         </ThemeIcon>
-                      }>Not very good at responding to recent price changes.</List.Item>
+                      }>Niezbyt dobrze radzi sobie z ostatnimi zmianami cen.</List.Item>
                       <List.Item icon={
                         <ThemeIcon color="red" size={24} radius="xl">
                           <IconBan size={16} />
                         </ThemeIcon>
-                      }>Can generate false signals, especially in volatile markets.</List.Item>
+                      }>Może generować fałszywe sygnały, zwłaszcza przy niestabilnych rynkach.</List.Item>
                     </List>
                     <Text fz={16} fw={500}>
-                      Advantages of EMA:
+                      Zalety EMA:
                     </Text>
                     <List withPadding>
                       <List.Item icon={
                         <ThemeIcon color="green" size={24} radius="xl">
                           <IconCheck size={16} />
                         </ThemeIcon>
-                      }>More responsive to recent price changes than SMA.</List.Item>
+                      }>Bardziej reaktywny na ostatnie zmiany cen niż SMA.</List.Item>
                       <List.Item icon={
                         <ThemeIcon color="green" size={24} radius="xl">
                           <IconCheck size={16} />
                         </ThemeIcon>
-                      }>Can help in identifying trends and generating buy/sell signals.</List.Item>
+                      }>Może pomóc w identyfikacji trendów i generowaniu sygnałów kupna/sprzedaży.</List.Item>
                     </List>
                     <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                      Disadvantages of EMA:
+                      Wady EMA:
                     </Text>
                     <List withPadding>
                       <List.Item icon={
                         <ThemeIcon color="red" size={24} radius="xl">
                           <IconBan size={16} />
                         </ThemeIcon>
-                      }>More complex to calculate than SMA.</List.Item>
+                      }>Bardziej skomplikowany w obliczeniach niż SMA.
+                      </List.Item>
                       <List.Item icon={
                         <ThemeIcon color="red" size={24} radius="xl">
                           <IconBan size={16} />
                         </ThemeIcon>
-                      }>Can generate more false signals than SMA.</List.Item>
+                      }>Może generować więcej fałszywych sygnałów niż SMA.</List.Item>
                     </List>
                   </Modal>
                   <Button
@@ -212,7 +215,7 @@ export function MainPage(props: MainPageProps) {
                     color={dark ? 'grape' : 'blue'}
                     onClick={() => setOpenedData(true)}
                   >
-                    Data
+                    Histogramy
                   </Button>
                   <Modal
                     opened={openedMACD}
@@ -224,74 +227,76 @@ export function MainPage(props: MainPageProps) {
                   >
                     <Text align='center' fz={40}
                     >
-                      MACD Indicator <ThemeIcon color='grape' variant="light">
+                      Wskaźnik MACD <ThemeIcon color='grape' variant="light">
                         <IconTimeline />
                       </ThemeIcon>
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
-                    <ThemeIcon color='grape' size="sm" variant="light">
+                      <ThemeIcon color='grape' size="sm" variant="light">
                         <IconTool />
                       </ThemeIcon> MACD (Moving Average Convergence Divergence)
                     </Text>
                     <Text style={{ marginBottom: 16 }}>
                       <Text style={{ marginBottom: 8 }}>
-                        MACD is a technical indicator that is used to identify changes in momentum and trend. It is calculated by subtracting the 26-period Exponential Moving Average (EMA) from the 12-period EMA. The result is a line that oscillates around zero, and is called the MACD line. Additionally, a 9-period EMA of the MACD line is plotted on the chart and is called the signal line.<br />
+                        MACD to wskaźnik techniczny, który służy do identyfikacji zmian tempa i trendu. Jest on obliczany przez odejmowanie 26-okresowej średniej kroczącej ważonej (EMA) od 12-okresowej EMA. Wynikiem jest linia, która oscyluje wokół zera i nazywana jest linią MACD. Dodatkowo na wykresie jest rysowana 9-okresowa EMA linii MACD, która nazywana jest linią sygnałową.<br />
                       </Text>
                       <Text style={{ marginBottom: 8 }}>
-                        The MACD line and the signal line are used together to generate buy and sell signals. When the MACD line crosses above the signal line, it is considered a bullish signal, indicating that the momentum is shifting to the upside and that it may be a good time to buy. Conversely, when the MACD line crosses below the signal line, it is considered a bearish signal, indicating that the momentum is shifting to the downside and that it may be a good time to sell.<br />
+                        Linia MACD i linia sygnału są używane razem do generowania sygnałów kupna i sprzedaży. Kiedy linia MACD przebiega powyżej linii sygnału, jest to uważane za sygnał byka, co oznacza, że ​​momentum przesuwa się ku górze i może być dobrym czasem na zakup. Przeciwnie, kiedy linia MACD przebiega poniżej linii sygnału, jest to uważane za sygnał niedźwiedzia, co oznacza, że ​​momentum przesuwa się ku dołowi i może być dobrym czasem na sprzedaż.<br />
                       </Text>
                       <Text style={{ marginBottom: 8 }}>
-                        MACD is a versatile indicator that can be used in various time frames and for different markets, it is often used in combination with other indicators and analysis to confirm trends and identify potential buy and sell opportunities.
+                        MACD to uniwersalny wskaźnik, który może być używany w różnych ramach czasowych i dla różnych rynków. Często jest używany w połączeniu z innymi wskaźnikami i analizami, aby potwierdzać trendy i identyfikować potencjalne okazje do kupna i sprzedaży.
                       </Text>
                       <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
-                      <ThemeIcon color='grape' size="sm" variant="light">
-                        <IconQuestionMark />
-                      </ThemeIcon> Advantages and disadvantages of MACD indicator:
+                        <ThemeIcon color='grape' size="sm" variant="light">
+                          <IconQuestionMark />
+                        </ThemeIcon> Zalety i wady wskaźnika MACD:
                       </Text>
                       <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                        Advantages:
+                        Zalety:
                       </Text>
                       <List withPadding>
                         <List.Item icon={
                           <ThemeIcon color="green" size={24} radius="xl">
                             <IconCheck size={16} />
                           </ThemeIcon>
-                        }>Helps to identify changes in trends and momentum in the market, allowing for quicker response to price changes.</List.Item>
+                        }>Pomaga w identyfikacji zmian trendów i momentum na rynku, umożliwiając szybszą reakcję na zmiany cen.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="green" size={24} radius="xl">
                             <IconCheck size={16} />
                           </ThemeIcon>
-                        }>Generates buy and sell signals, allowing for better utilization of investment opportunities.</List.Item>
+                        }>Generuje sygnały kupna i sprzedaży, umożliwiając lepsze wykorzystanie okazji inwestycyjnych.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="green" size={24} radius="xl">
                             <IconCheck size={16} />
                           </ThemeIcon>
-                        }>It is versatile and can be used in different time frames and for different markets.</List.Item>
+                        }>Jest uniwersalny i może być używany w różnych przedziałach czasowych i na różnych rynkach.</List.Item>
                       </List>
                       <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                        Disadvantages:
+                        Wady:
                       </Text>
                       <List withPadding>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Can generate false signals, especially in unstable markets.</List.Item>
+                        }>Może generować fałszywe sygnały, szczególnie w niestabilnych rynkach.
+                        </List.Item>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Does not take into account all factors affecting the market, so it should be used with other indicators and analysis.</List.Item>
+                        }>Nie bierze pod uwagę wszystkich czynników wpływających na rynek, dlatego powinien być używany z innymi wskaźnikami i analizami.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Delayed signals, especially in comparison to leading indicators.</List.Item>
+                        }>Opóźnione sygnały, szczególnie w porównaniu do wskaźników wiodących.
+                        </List.Item>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Lack of specific recommendations for stop loss or take profit levels.</List.Item>
+                        }>Brak konkretnych rekomendacji dotyczących poziomów stop loss lub take profit.</List.Item>
                       </List>
                     </Text>
                   </Modal>
@@ -312,80 +317,82 @@ export function MainPage(props: MainPageProps) {
                   >
                     <Text align='center' fz={40}
                     >
-                      RSI Indicator  <ThemeIcon color='grape' variant="light">
+                      Wskaźnik RSI  <ThemeIcon color='grape' variant="light">
                         <IconTimeline />
                       </ThemeIcon>
                     </Text>
                     <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
-                    <ThemeIcon color='grape' size="sm" variant="light">
+                      <ThemeIcon color='grape' size="sm" variant="light">
                         <IconTool />
                       </ThemeIcon> RSI (Relative Strength Index)
                     </Text>
                     <Text style={{ marginBottom: 16 }}>
                       <Text style={{ marginBottom: 8 }}>
-                        RSI is a momentum indicator that is used to measure the strength of an asset's price action. It compares the magnitude of recent gains to recent losses in an attempt to determine overbought and oversold conditions of an asset.
+                        RSI to wskaźnik momentu, który jest używany do mierzenia siły ruchu cenowego aktywa. Porównuje on wielkość ostatnich zysków do ostatnich strat w celu określenia stanu przepływu i przepływu aktywa.
                       </Text>
                       <Text style={{ marginBottom: 8 }}>
-                        It is calculated by dividing the average gain of up periods by the average loss of down periods, and then converting the result into a value between 0 and 100.
+                        Jest to obliczany przez dzielenie średniego zysku okresów wzrostowych przez średnią stratę okresów spadkowych, a następnie przekształca wynik w wartość między 0 a 100.
                       </Text>
                       <Text style={{ marginBottom: 8 }}>
-                        Traditionally, an RSI reading above 70 is considered overbought, indicating that the asset may be due for a price correction, and a reading below 30 is considered oversold, indicating that the asset may be undervalued and due for a price increase.
+                        Przeważnie odczyt RSI powyżej 70 uważany jest za przewartościowany, co oznacza, że aktywo może być skłonne do korekty cenowej, natomiast odczyt poniżej 30 uważany jest za niedowartościowany, co oznacza, że aktywo może być pod ceną i skłonne do wzrostu cenowego.
                       </Text>
                       <Text style={{ marginBottom: 8 }}>
-                        The RSI can also be used to generate buy and sell signals. A bullish signal is generated when the RSI crosses above the 30 level, indicating that the asset may be undervalued and due for a price increase. A bearish signal is generated when the RSI crosses below the 70 level, indicating that the asset may be overvalued and due for a price correction.
+                        RSI może być również używany do generowania sygnałów kupna i sprzedaży. Sygnał byka jest generowany, gdy RSI przekracza poziom 30, co oznacza, że aktywo może być zaniżone i przysługuje mu wzrost ceny. Sygnał niedźwiedzia jest generowany, gdy RSI przekracza poziom 70, co oznacza, że aktywo może być przewartościowane i przysługuje mu korekta ceny.
                       </Text>
                       <Text style={{ marginBottom: 8 }}>
-                        It's worth noting that RSI can also stay in overbought or oversold territory for a longer time, so it should be used in conjunction with other indicators and analysis to confirm trends and identify potential buy and sell opportunities.
+                        Warto zauważyć, że RSI może również pozostawać w strefie przewartościowania lub przepłycenia przez dłuższy czas, dlatego powinien być używany w połączeniu z innymi wskaźnikami i analizami, aby potwierdzić trendy i rozpoznać potencjalne okazje do kupna i sprzedaży.
                       </Text>
                       <Text fz={20} fw={500} style={{ marginBottom: 8 }}>
-                      <ThemeIcon color='grape' size="sm" variant="light">
-                        <IconQuestionMark />
-                      </ThemeIcon> Advantages and disadvantages of MACD indicator:
+                        <ThemeIcon color='grape' size="sm" variant="light">
+                          <IconQuestionMark />
+                        </ThemeIcon> Zalety i wady wskaźnika MACD:
                       </Text>
                       <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                        Advantages:
+                        Zalety:
                       </Text>
                       <List withPadding>
                         <List.Item icon={
                           <ThemeIcon color="green" size={24} radius="xl">
                             <IconCheck size={16} />
                           </ThemeIcon>
-                        }>Helps to identify overbought and oversold market conditions, allowing for better risk management.</List.Item>
+                        }>Pomaga w identyfikacji warunków rynku przecenionego i przewartościowanego, co pozwala na lepsze zarządzanie ryzykiem.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="green" size={24} radius="xl">
                             <IconCheck size={16} />
                           </ThemeIcon>
-                        }>Generates buy and sell signals, allowing for better utilization of investment opportunities.</List.Item>
+                        }>Generuje sygnały kupna i sprzedaży, umożliwiając lepsze wykorzystanie okazji inwestycyjnych.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="green" size={24} radius="xl">
                             <IconCheck size={16} />
                           </ThemeIcon>
-                        }>Simple to understand and interpret.</List.Item>
+                        }>Prosty do zrozumienia i interpretacji.
+                        </List.Item>
                       </List>
                       <Text fz={16} fw={500} style={{ marginBottom: 8 }}>
-                        Disadvantages:
+                        Wady:
                       </Text>
                       <List withPadding>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Can generate false signals, especially in unstable markets.</List.Item>
+                        }>Może generować fałszywe sygnały, szczególnie w niestabilnych rynkach.
+                        </List.Item>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Often used as a sole indicator, which can lead to incorrect investment decisions.</List.Item>
+                        }>Często używany jako jedyny wskaźnik, co może prowadzić do błędnych decyzji inwestycyjnych.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Delayed signals, especially in comparison to leading indicators.</List.Item>
+                        }>Opóźnione sygnały, szczególnie w porównaniu do wskaźników wiodących.</List.Item>
                         <List.Item icon={
                           <ThemeIcon color="red" size={24} radius="xl">
                             <IconBan size={16} />
                           </ThemeIcon>
-                        }>Lack of specific recommendations for stop loss or take profit levels.</List.Item>
+                        }>Brak konkretnych rekomendacji dotyczących poziomów stop loss lub take profit.</List.Item>
                       </List>
                     </Text>
                   </Modal>

@@ -36,7 +36,7 @@ export function NavCurrency(props: NavCurrencyProps) {
   return (
     <NativeSelect
       style={{ marginBottom: '20px' }}
-      label="Your Currency"
+      label="Twoja waluta"
       placeholder="USD"
       data={post}
       value={value}
